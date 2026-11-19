@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=UltraCopy
+GenericName=File Copy
+GenericName[ja]=ファイルコピー
+Comment=Safe file copy with SHA-256 verification
+Comment[ja]=SHA-256 で検証する、安全重視のファイルコピー
+Exec=ultracopy
+Icon=ultracopy
+Terminal=false
+Categories=Utility;FileTools;
+Keywords=copy;backup;verify;sha256;コピー;バックアップ;検証;
+StartupWMClass=ultracopy

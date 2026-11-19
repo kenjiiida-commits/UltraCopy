@@ -1,0 +1,17 @@
+.TH ULTRACOPY 1 "2026" "UltraCopy" "User Commands"
+.SH NAME
+ultracopy \- safe GUI file copier with SHA-256 verification
+.SH SYNOPSIS
+.B ultracopy
+.SH DESCRIPTION
+.B ultracopy
+starts the UltraCopy graphical file copier.
+Files and folders are copied into a hidden staging folder on the destination
+file system, verified with SHA-256 by re-reading the destination from disk,
+committed with fsync/syncfs, and then published without overwriting any
+existing item.
+.PP
+Copy history is stored in
+.IR ~/.local/share/ultracopy/history.sqlite3 .
+.SH SEE ALSO
+https://github.com/kenjiiida-commits/UltraCopy

@@ -16,7 +16,7 @@ import time
 from pathlib import Path
 
 from PySide6.QtCore import QThread, Signal
-from PySide6.QtGui import QColor
+from PySide6.QtGui import QColor, QIcon
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QLabel, QLineEdit, QPushButton,
     QFileDialog, QVBoxLayout, QHBoxLayout, QGridLayout, QProgressBar,
@@ -25,7 +25,7 @@ from PySide6.QtWidgets import (
     QDialogButtonBox, QComboBox,
 )
 
-APP_VERSION = "0.7.8"
+APP_VERSION = "0.7.9"
 CHUNK_SIZE = 4 *  1024 * 1024
 DATA_DIR = Path.home() / ".local" / "share" / "ultracopy"
 DB_PATH = DATA_DIR / "history.sqlite3"
@@ -2520,6 +2520,13 @@ def main():
             f"（現在: {sys.version.split()[0]}）"
         )
     app = QApplication(sys.argv)
+    app.setApplicationName("UltraCopy")
+    # DEB でインストールした場合に、ドックやタスクバーに正しいアイコンと名前を
+    # 表示するための設定（ultracopy.desktop と対応する）。
+    app.setDesktopFileName("ultracopy")
+    icon = QIcon.fromTheme("ultracopy")
+    if not icon.isNull():
+        app.setWindowIcon(icon)
     window = MainWindow()
     window.show()
     sys.exit(app.exec())

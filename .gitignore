@@ -13,3 +13,7 @@ tests/symlink/runs/
 *.bak
 *.backup
 *.orig
+
+# DEB の作成で生じるもの
+build/
+dist/

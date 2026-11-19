@@ -1,4 +1,4 @@
-# UltraCopy for Ubuntu Ver.0.7.8
+# UltraCopy for Ubuntu Ver.0.7.9
 
 Ubuntu向けのGUIファイルコピー試作アプリです。
 
@@ -24,7 +24,27 @@ Ubuntu向けのGUIファイルコピー試作アプリです。
 - Python 3.10 以上（Ubuntu 22.04 標準の Python 3.10 で動作します）
 - python3-venv（`sudo apt install python3-venv`）
 
-## 起動方法
+## インストール（DEB パッケージ・おすすめ）
+Ubuntu 25.04 以降（26.04 LTS を含む）では、DEB パッケージでインストールできます。
+
+1. [Releases](https://github.com/kenjiiida-commits/UltraCopy/releases) から `ultracopy_<バージョン>_all.deb` をダウンロードします。
+2. ダウンロードしたフォルダーで端末を開き、次を実行します（PySide6 も自動でインストールされます）。
+
+```bash
+sudo apt install ./ultracopy_0.7.9_all.deb
+```
+
+インストール後は、アプリ一覧の「UltraCopy」から起動できます。端末から `ultracopy` と入力しても起動します。
+
+アンインストール:
+
+```bash
+sudo apt remove ultracopy
+```
+
+Ubuntu 22.04・24.04 には PySide6 の公式パッケージがないため、DEB は使えません。次の「起動方法（ソースから）」で起動してください。
+
+## 起動方法（ソースから）
 端末でこのフォルダーへ移動し、次を実行してください。
 
 ```bash
@@ -52,11 +72,20 @@ bash tests/run_all_tests.sh
 最後に「合計: PASS … / FAIL 0」と表示されれば、すべての試験に合格しています。
 ループデバイスを使う一部の試験（ディスク上だけ壊れたデータを検証で検出できるか）は、root で実行したときだけ動きます。
 
+## DEB パッケージの作り方
+UltraCopy のフォルダーで次を実行すると、`dist/` に DEB ファイルができます。バージョンは `src/main.py` の `APP_VERSION` から決まります。
+
+```bash
+bash packaging/build_deb.sh
+```
+
 ## 確認済みの範囲
-- 自動試験（約 600 項目）: Ubuntu 系の Linux（カーネル 6.x、ext4・tmpfs）で、Python 3.10 / 3.13、一般ユーザーと root の両方で合格
+- 自動試験（約 600 項目）: Ubuntu 系の Linux（カーネル 6.x、ext4・tmpfs）で、Python 3.10 / 3.13 / 3.14、一般ユーザーと root の両方で合格
+- DEB パッケージ: Ubuntu 26.04 LTS で、インストール・起動・アンインストールと、Ubuntu の PySide6 パッケージでの動作を確認
+- 実機の USB メモリ（FAT 系）へのファイル・フォルダーのコピーと検証を確認
 - 停電は再現できないため、ディスクへの書き込み確定（fsync・syncfs）は、呼び出しの順序を記録する方法で確認しています
 - 次の環境は、試験で動作を模擬したのみで、実機では確認していません
-  - FAT・exFAT・NTFS の USB メモリ、ネットワークドライブ（NFS・SMB）、FUSE
+  - NTFS の USB メモリ、ネットワークドライブ（NFS・SMB）、FUSE
   - ARM（Raspberry Pi など）
   - Btrfs・XFS・ZFS
 
@@ -69,6 +98,10 @@ MIT ライセンスで公開しています。詳しくは [LICENSE](LICENSE) �
 本ソフトウェアは無保証です。利用によって生じたデータの損失などについて、作者は責任を負いません。
 
 ## 変更履歴
+### Ver.0.7.9
+- DEB パッケージに対応（Ubuntu 25.04 以降）。アプリ一覧への登録、アイコン、`ultracopy` コマンド、説明書（`man ultracopy`）を追加
+- DEB の作成用スクリプト `packaging/build_deb.sh` を追加
+
 ### Ver.0.7.8
 - 非常に深いフォルダー階層をコピーできるように変更。これまでは次の3つの理由で失敗していた
   - Python の再帰の上限（約 1000 階層で RecursionError）→ 再帰を使わない処理に変更
