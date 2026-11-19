@@ -1,0 +1,15 @@
+# 仮想環境（起動.sh が作成）
+.venv
+
+# Python のキャッシュ
+__pycache__/
+*.pyc
+
+# 試験の作業フォルダー
+tests/file_attributes/
+tests/symlink/runs/
+
+# バックアップ
+*.bak
+*.backup
+*.orig
